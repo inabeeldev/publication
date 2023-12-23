@@ -44,7 +44,8 @@
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Page CSS -->
-
+    {{-- select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Helpers -->
     <script src="{{ asset('public/assets/vendor/js/helpers.js') }}"></script>
 
@@ -150,6 +151,25 @@
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="Basic">Recommendations</div>
                 </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <div data-i18n="Basic">Users</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                    <a href="{{ route('users.index') }}" class="menu-link">
+                        <div data-i18n="Basic">All Users</div>
+                    </a>
+                    </li>
+                    <li class="menu-item">
+                    <a href="{{ route('users.create') }}" class="menu-link">
+                        <div data-i18n="Basic">Create User</div>
+                    </a>
+                    </li>
+                </ul>
             </li>
         </ul>
         </aside>
@@ -275,6 +295,9 @@
     <script src="{{ asset('public/assets/vendor/js/bootstrap.js') }}../"></script>
     <script src="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
+    {{-- select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script src="{{ asset('public/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
@@ -289,5 +312,12 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
   </body>
 </html>
