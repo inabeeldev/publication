@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - Analytics | Publication</title>
+    <title>Dashboard - Analytics | getclout</title>
 
     <meta name="description" content="" />
 
@@ -63,7 +63,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
-              <span class="app-brand-logo demo">
+              {{-- <span class="app-brand-logo demo">
                 <svg
                   width="25"
                   viewBox="0 0 25 42"
@@ -118,7 +118,10 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Publication</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">getclout</span> --}}
+              <span class="app-brand-logo demo">
+                <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="Your Logo" class="logo-image1">
+            </span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

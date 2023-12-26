@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | Publication</title>
+    <title>Login Basic - Pages | getclout</title>
 
     <meta name="description" content="" />
 
@@ -66,7 +66,7 @@
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="app-brand-link gap-2">
-                  <span class="app-brand-logo demo">
+                  {{-- <span class="app-brand-logo demo">
                     <svg
                       width="25"
                       viewBox="0 0 25 42"
@@ -121,11 +121,12 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Publication</span>
+                  <span class="app-brand-text demo text-body fw-bolder">getclout</span> --}}
+                  <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="" style="object-fit: cover; width:100%;">
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Publication! 👋</h4>
+              <h4 class="mb-2">Welcome to getclout! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
               <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
