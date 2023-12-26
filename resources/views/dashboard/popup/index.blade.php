@@ -52,7 +52,7 @@
 
                         <div class="mb-3">
                             <label for="publicationsPackages" class="form-label">Enter Content of Popup</label>
-                            <textarea class="form-control" id="summernote" name="content" rows="3" placeholder="Please enter at least one parameter. Separate parameters by MUST and PREFERRED. Ex. MUST: DA60+, Google Indexed; PREFERRED: Fashion-focused"></textarea>
+                            <textarea class="form-control" id="summernote" name="content" ></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -148,7 +148,7 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-    $('#summernote').summernote();
-  });
-</script>
+        $('#summernote').summernote();
+    });
+  </script>
 @endsection

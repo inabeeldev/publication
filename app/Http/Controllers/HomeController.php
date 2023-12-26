@@ -35,4 +35,9 @@ class HomeController extends Controller
     {
         return view('dashboard.recommendation');
     }
+
+    public function profile()
+    {
+        return view('dashboard.profile');
+    }
 }

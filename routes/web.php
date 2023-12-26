@@ -27,6 +27,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
     Route::get('/submit-order', [App\Http\Controllers\HomeController::class, 'submitOrder'])->name('submit-order');
     Route::get('/request-recommendation', [App\Http\Controllers\HomeController::class, 'requestRecommendation'])->name('request-recommendation');
     Route::resource('roles', RoleController::class);
