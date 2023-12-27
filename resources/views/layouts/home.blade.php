@@ -18,6 +18,8 @@
     <title>Dashboard - Analytics | getclout</title>
 
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('public/assets/img/favicon/favicon.ico') }}" />
@@ -150,7 +152,7 @@
             <li class="menu-item {{ request()->is('submit-order') ? 'active' : '' }}">
                 <a href="{{ route('submit-order') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
-                    <div data-i18n="Basic">Submit Order</div>
+                    <div data-i18n="order">Submit Order</div>
                 </a>
             </li>
 
@@ -158,7 +160,7 @@
             <li class="menu-item {{ request()->is('request-recommendation') ? 'active' : '' }}">
                 <a href="{{ route('request-recommendation') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
-                    <div data-i18n="Basic">Recommendations</div>
+                    <div data-i18n="recommendation">Recommendations</div>
                 </a>
             </li>
 
@@ -166,28 +168,50 @@
             <li class="menu-item {{ request()->is('popus') ? 'active' : '' }}">
                 <a href="{{ route('popups.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
-                    <div data-i18n="Basic">Popups</div>
+                    <div data-i18n="popup">Popups</div>
                 </a>
             </li>
+            @can('user-list')
 
-            <li class="menu-item">
+            <li class="menu-item {{ request()->is('users') || request()->is('users/create') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                    <div data-i18n="Basic">Users</div>
+                    <div data-i18n="users">Users</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class="menu-link">
-                        <div data-i18n="Basic">All Users</div>
+                        <div data-i18n="all_users">All Users</div>
                     </a>
                     </li>
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->is('users/create') ? 'active' : '' }}">
                     <a href="{{ route('users.create') }}" class="menu-link">
-                        <div data-i18n="Basic">Create User</div>
+                        <div data-i18n="create_user">Create User</div>
                     </a>
                     </li>
                 </ul>
             </li>
+            @endcan
+            @can('role-list')
+            <li class="menu-item {{ request()->is('roles') || request()->is('roles/create') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <div data-i18n="roles">Roles</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('roles') ? 'active' : '' }}">
+                    <a href="{{ route('roles.index') }}" class="menu-link">
+                        <div data-i18n="all_roles">All Roles</div>
+                    </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('roles/create') ? 'active' : '' }}">
+                    <a href="{{ route('roles.create') }}" class="menu-link">
+                        <div data-i18n="create_role">Create Role</div>
+                    </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
         </ul>
         </aside>
         <!-- / Menu -->

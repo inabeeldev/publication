@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->get();
@@ -33,22 +38,27 @@ class RoleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'permission' => 'required|array',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator)  // Pass the validation errors to the view
-                ->withInput();           // Pass the old input data to the view
+                ->withErrors($validator)
+                ->withInput();
         }
 
-
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('dashboard.role.index')
-                        ->with('success','Role created successfully');
+        // Fetch permission names based on IDs
+        $permissionNames = Permission::whereIn('id', $request->input('permission'))->pluck('name')->toArray();
+
+        // Sync permissions using names
+        $role->syncPermissions($permissionNames);
+
+        return redirect()->route('roles.index')
+                        ->with('success', 'Role created successfully');
     }
+
 
     /**
      * Display the specified resource.

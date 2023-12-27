@@ -27,7 +27,8 @@
             <div class="card mb-4">
                 <h5 class="card-header">Create a User</h5>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('users.store') }}">
+                        @csrf
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Name</label>
                             <input
@@ -50,6 +51,15 @@
                                 id="clientWebsite"
                                 placeholder="Enter Email"
                             />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="defaultFormControlInput" class="form-label">User Type</label>
+                            <select class="form-select" name="user_type" id="user_type">
+                                <option value="">Choose User Type</option>
+                                <option value="admin">Admin</option>
+                                <option value="manager">Employee</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="clientWebsite" class="form-label">Password</label>
@@ -76,7 +86,7 @@
                         <div class="mb-3">
                             <div class="form-group">
                                 <label for="roles" class="form-label"><strong>Role:</strong></label>
-                                <select name="roles[]" id="roles" class="form-control select2" multiple>
+                                <select name="role" id="role" class="form-control">
                                     @foreach($roles as $role)
                                         <option value="{{ $role }}">{{ $role }}</option>
                                     @endforeach

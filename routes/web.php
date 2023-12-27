@@ -22,7 +22,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+Route::post('/customer-register', [App\Http\Controllers\customer\AuthController::class, 'register'])->name('customer-register');
+Route::post('/customer-login', [App\Http\Controllers\customer\AuthController::class, 'login'])->name('customer-login');
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/request-recommendation', [App\Http\Controllers\HomeController::class, 'requestRecommendation'])->name('request-recommendation');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::post('/update-approval/{id}', [App\Http\Controllers\UserController::class, 'updateApproval'])->name('update-approval');
     Route::resource('products', ProductController::class);
     Route::resource('popups', PopupController::class);
 });

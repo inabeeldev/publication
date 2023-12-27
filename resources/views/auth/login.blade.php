@@ -126,6 +126,13 @@
                 </a>
               </div>
               <!-- /Logo -->
+              @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                @endif
               <h4 class="mb-2">Welcome to getclout! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 

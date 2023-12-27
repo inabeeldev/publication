@@ -75,10 +75,29 @@
                     </a>
                 </div>
                 <!-- /Logo -->
+                @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
 
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        </button>
+                    </div>
+                @endif
               <h4 class="mb-2">Adventure starts here 🚀</h4>
 
-            <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+            <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('customer-register') }}">
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -89,7 +108,7 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -126,15 +145,15 @@
                     <div class="mb-3">
                         <label for="getclout_services" class="form-label">Which getclout services are you interested in whitelabeling? (Select all that apply)</label>
                         <select class="form-select select2" id="getclout_services" name="getclout_services[]" multiple="multiple" data-placeholder="Select services...">
-                            <option value="service1">Digital Press (guaranteed)</option>
-                            <option value="service2">Print Press (guaranteed)</option>
-                            <option value="service3">TV Interviews (guaranteed)</option>
-                            <option value="service4">Digital Billboards</option>
-                            <option value="service5">Editorial Digital Gift Guides</option>
-                            <option value="service6">Top-Tier Digital Press</option>
-                            <option value="service7">Verification Components (Evaluation, Press, Google Knowledge Panel)</option>
-                            <option value="service8">SEO / PPC</option>
-                            <option value="service9">Top Lists</option>
+                            <option value="digital_press">Digital Press (guaranteed)</option>
+                            <option value="print_press">Print Press (guaranteed)</option>
+                            <option value="tv_interviews">TV Interviews (guaranteed)</option>
+                            <option value="digital_billboards">Digital Billboards</option>
+                            <option value="editorial_digital_gift_guides">Editorial Digital Gift Guides</option>
+                            <option value="top_tier_digital_press">Top-Tier Digital Press</option>
+                            <option value="verification_components">Verification Components (Evaluation, Press, Google Knowledge Panel)</option>
+                            <option value="seo_ppc">SEO / PPC</option>
+                            <option value="top_lists">Top Lists</option>
                         </select>
                     </div>
                 </div>
@@ -142,22 +161,22 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="contact_preference" class="form-label">How quickly do you plan to place an order? </label>
-                        <select class="form-select" id="contact_preference" name="contact_preference">
+                        <select class="form-select" id="order_timing" name="order_timing">
                             <option value="">Select One</option>
-                            <option value="imessage">Less than a week</option>
-                            <option value="whatsapp">Less than a month</option>
-                            <option value="telegram">1+ months</option>
+                            <option value="less_than_a_week">Less than a week</option>
+                            <option value="less_than_a_month">Less than a month</option>
+                            <option value="more_than_a_month">1+ months</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="contact_preference" class="form-label">How many orders do you expect to place per month? </label>
-                        <select class="form-select" id="contact_preference" name="contact_preference">
+                        <select class="form-select" id="order_quantity" name="order_quantity">
                             <option value="">Select One</option>
-                            <option value="imessage">1 - 2</option>
-                            <option value="whatsapp">3 - 4</option>
-                            <option value="telegram">5+</option>
+                            <option value="one_to_two">1 - 2</option>
+                            <option value="three_to_four">3 - 4</option>
+                            <option value="more_than_five">5+</option>
                         </select>
                     </div>
                 </div>
@@ -165,15 +184,15 @@
                 <div class="col-md-12">
                     <div class="mb-3">
                         <label for="getclout_services" class="form-label">How did you hear about getclout?</label>
-                        <select class="form-select" id="getclout_services" name="getclout_services">
-                            <option value="service1">Select One</option>
-                            <option value="service1">Google Ads</option>
-                            <option value="service2">Instagram</option>
-                            <option value="service2">Facebook</option>
-                            <option value="service3">LinkedIn</option>
-                            <option value="service4">Google Search</option>
-                            <option value="service6">Referred by Existing Partner</option>
-                            <option value="service7">Other</option>
+                        <select class="form-select" id="how_did_you_hear" name="how_did_you_hear">
+                            <option value="">Select One</option>
+                            <option value="google_ads">Google Ads</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="google_search">Google Search</option>
+                            <option value="referred_partner">Referred by Existing Partner</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                 </div>
