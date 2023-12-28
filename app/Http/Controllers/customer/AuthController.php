@@ -6,10 +6,22 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+    public function registerForm()
+    {
+        return view('customer.auth.register');
+    }
+
+    public function loginForm()
+    {
+        return view('customer.auth.login');
+    }
+
     public function register(Request $request)
     {
         // dd($request->all());
@@ -59,6 +71,55 @@ class AuthController extends Controller
 
         // Notify admin or perform any other necessary actions
 
-        return redirect()->route('login')->with('success', 'Registration request sent to admin. You will get password after approval by admin');
+        return redirect()->route('login-form')->with('success', 'Registration request sent to admin. You will get password after approval by admin');
+    }
+
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Attempt to log in the user
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            // Check user type
+            $user = Auth::user();
+            if ($user->user_type !== 'customer') {
+                Auth::logout(); // Log out the user if not a customer
+                return redirect()->route('login-form')
+                    ->withInput($request->only('email', 'remember'))
+                    ->withErrors(['email' => 'You are not authorized to log in from customer login page.']); // Customize the error message
+            }
+
+            // Authentication passed...
+            return redirect()->intended(route('customer-home')); // Change 'dashboard' to your desired route after login
+        }
+
+        // Authentication failed...
+        return redirect()->route('login-form')
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors(['email' => __('auth.failed')]); // You can customize the error message as needed
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

@@ -140,60 +140,29 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item {{ request()->is('home') ? 'active' : '' }}">
-                <a href="{{ route('home') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                    <div data-i18n="Analytics">Dashboard</div>
-                </a>
-            </li>
 
 
-            <!-- Submit Orders -->
-            @can('submit-order')
-            <li class="menu-item {{ request()->is('submit-order/list') || request()->is('submit-order/create') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                    <div data-i18n="roles">Orders</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item {{ request()->is('submit-order/list') ? 'active' : '' }}">
-                    <a href="{{ route('list-submit-order') }}" class="menu-link">
-                        <div data-i18n="all_roles">List Submitted Order</div>
-                    </a>
-                    </li>
-                    <li class="menu-item {{ request()->is('submit-order/create') ? 'active' : '' }}">
-                    <a href="{{ route('create-submit-order') }}" class="menu-link">
-                        <div data-i18n="create_role">Submit Order</div>
-                    </a>
-                    </li>
-                </ul>
-            </li>
-            @endcan
 
-            <!-- Recommendations -->
-            @can('request-recommendations')
-            <li class="menu-item {{ request()->is('request-recommendation/list') || request()->is('request-recommendation/create') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                    <div data-i18n="roles">Recommendations</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item {{ request()->is('request-recommendation/list') ? 'active' : '' }}">
-                    <a href="{{ route('list-request-recommendation') }}" class="menu-link">
-                        <div data-i18n="all_roles">List</div>
-                    </a>
-                    </li>
-                    <li class="menu-item {{ request()->is('request-recommendation/create') ? 'active' : '' }}">
-                    <a href="{{ route('create-request-recommendation') }}" class="menu-link">
-                        <div data-i18n="create_role">Request One</div>
-                    </a>
-                    </li>
-                </ul>
-            </li>
-            @endcan
+
+
 
             <!-- Popup messages -->
+
+            <li class="menu-item {{ request()->is('admin/orders') ? 'active' : '' }}">
+                <a href="{{ route('admin-order') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-detail"></i>
+                    <div data-i18n="popup">Orders</div>
+                </a>
+            </li>
+
+
+            <li class="menu-item {{ request()->is('admin/recommendations') ? 'active' : '' }}">
+                <a href="{{ route('admin-recommendation') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-detail"></i>
+                    <div data-i18n="popup">Recommendations</div>
+                </a>
+            </li>
+
             @can('popup-list')
             <li class="menu-item {{ request()->is('popus') ? 'active' : '' }}">
                 <a href="{{ route('popups.index') }}" class="menu-link">
@@ -302,7 +271,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ route('profile') }}">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>

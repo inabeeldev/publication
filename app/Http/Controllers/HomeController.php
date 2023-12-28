@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recommendation;
+use App\Models\SubmitOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -23,21 +26,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashboard');
+        return view('admin.user.index');
     }
 
-    public function submitOrder()
-    {
-        return view('dashboard.order_submit');
-    }
-
-    public function requestRecommendation()
-    {
-        return view('dashboard.recommendation');
-    }
 
     public function profile()
     {
-        return view('dashboard.profile');
+        return view('admin.profile');
     }
+
+    public function order()
+    {
+        $orders = SubmitOrder::with('user')->paginate(1);
+        return view('admin.order.index', compact('orders'));
+    }
+
+    public function recommendation()
+    {
+        $recommendations = Recommendation::with('user')->paginate(1);
+        return view('admin.recommendation.index', compact('recommendations'));
+    }
+
+
 }

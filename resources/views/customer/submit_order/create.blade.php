@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('customer.layouts.app')
 
 @section('content')
 
@@ -10,18 +10,38 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold pt-3 ">Submit Order</h4>
     </div>
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
+    @endif
+
+    @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+    @endif
     <!-- form section -->
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Submit an order</h5>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('post-submit-order') }}">
+                        @csrf
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Client Name and/or Brand Name</label>
                             <input
                                 type="text"
+                                name="client_name"
                                 class="form-control"
                                 id="defaultFormControlInput"
                                 placeholder="John Doe"
@@ -34,6 +54,7 @@
                             <label for="clientWebsite" class="form-label">Client's Website or Social Media Link</label>
                             <input
                                 type="text"
+                                name="client_website"
                                 class="form-control"
                                 id="clientWebsite"
                                 placeholder="https://www.example.com"
@@ -41,8 +62,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="publicationsPackages" class="form-label">Publication(s), Package(s) or Service(s) (Textarea)</label>
-                            <textarea class="form-control" id="publicationsPackages" name="publicationsPackages" rows="3" placeholder="Enter one publication or service per line."></textarea>
+                            <label for="publicationsPackages" class="form-label">Publication(s), Package(s) or Service(s)</label>
+                            <textarea class="form-control" id="publicationsPackages" name="publications_packages" rows="3" placeholder="Enter one publication or service per line."></textarea>
                         </div>
 
                         <div class="mb-3">
@@ -58,11 +79,11 @@
 
                         <div class="mb-3">
                             <label for="paymentMethod" class="form-label">How will you be paying?</label>
-                            <select class="form-select" id="paymentMethod" name="paymentMethod">
+                            <select class="form-select" id="paymentMethod" name="payment_method">
                                 <option value="">Select One</option>
-                                <option value="wireTransfer">Wire Transfer</option>
+                                <option value="wire_transfer">Wire Transfer</option>
                                 <option value="ach">ACH (U.S. Banks Only)</option>
-                                <option value="creditCard">Credit Card (3.5% fee will be added)</option>
+                                <option value="credit_card">Credit Card (3.5% fee will be added)</option>
                             </select>
                         </div>
                         <div class="mb-4">

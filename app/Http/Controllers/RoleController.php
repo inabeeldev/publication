@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->get();
-        return view('dashboard.role.index',compact('roles'));
+        return view('admin.role.index',compact('roles'));
     }
 
     /**
@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('dashboard.role.create',compact('permission'));
+        return view('admin.role.create',compact('permission'));
     }
 
     /**

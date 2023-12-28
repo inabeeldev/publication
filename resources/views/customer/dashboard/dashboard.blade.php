@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('customer.layouts.app')
 
 @section('content')
 
@@ -12,8 +12,8 @@
 
         <!-- Import and Export Buttons -->
         <div class="d-flex">
-            <a href="{{ route('submit-order') }}" class="btn btn-primary me-2 text-white">Submit an order</a>
-            <a href="{{ route('request-recommendation') }}" class="btn btn-secondary text-white">Request Recommendations</a>
+            <a href="{{ route('create-submit-order') }}" class="btn btn-primary me-2 text-white">Submit an order</a>
+            <a href="{{ route('create-request-recommendation') }}" class="btn btn-secondary text-white">Request Recommendations</a>
         </div>
     </div>
     <!-- Striped Rows -->
@@ -127,7 +127,7 @@
 <!-- / Content -->
 
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
             processing: true,
@@ -156,7 +156,7 @@
             ],
         });
     });
-</script>
+</script> --}}
 
 
 @endsection

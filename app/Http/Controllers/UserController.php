@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard.user.index', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -28,7 +28,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('dashboard.user.create',compact('roles'));
+        return view('admin.user.create',compact('roles'));
     }
 
     /**
@@ -75,7 +75,7 @@ class UserController extends Controller
         if ($isApproved && is_null($user->password)) {
             $password = Str::random(8); // Generate an 8-character password
             $user->update(['password' => bcrypt($password)]);
-            Mail::to($user->email)->send(new ApproveUser($user, $password));
+            Mail::to('nabeel.office20@gmail.com')->send(new ApproveUser($user, $password));
         }
 
         return response()->json(['message' => 'Approval status and password updated successfully']);

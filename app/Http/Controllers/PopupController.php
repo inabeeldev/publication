@@ -14,7 +14,7 @@ class PopupController extends Controller
     public function index()
     {
         $popups = Popup::all();
-        return view('dashboard.popup.index', compact('popups'));
+        return view('admin.popup.index', compact('popups'));
     }
 
     /**

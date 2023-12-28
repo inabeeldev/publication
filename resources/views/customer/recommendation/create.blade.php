@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('customer.layouts.app')
 
 @section('content')
 
@@ -11,17 +11,39 @@
         <h4 class="fw-bold pt-3 ">Request Recommendations</h4>
     </div>
 
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    @endif
+
+    @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
+    @endif
+
     <!-- form section -->
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Request Recommendations</h5>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('post-request-recommendation') }}">
+                        @csrf
                         <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Prospect's Website or Social Media Link</label>
                             <input
                                 type="text"
+                                name="prospects_website"
                                 class="form-control"
                                 id="defaultFormControlInput"
                                 placeholder="https://"
@@ -34,8 +56,9 @@
                             <label for="clientWebsite" class="form-label">What is your prospect's goal with this order?</label>
                             <input
                                 type="text"
+                                name="prospects_goal"
                                 class="form-control"
-                                id="clientWebsite"
+                                id="prospects_goal"
                                 placeholder="Enter Prospects Goal"
                             />
                         </div>
@@ -46,19 +69,19 @@
                                 type="number"
                                 class="form-control"
                                 id="order_total"
-                                name="order_total"
+                                name="budget"
                                 placeholder="Min. $1250 to request recommendations."
                             />
                         </div>
 
                         <div class="mb-3">
                             <label for="publicationsPackages" class="form-label">Publication(s), Package(s) or Service(s) you believe would be a good fit:</label>
-                            <textarea class="form-control" id="publicationsPackages" name="publicationsPackages" rows="3" placeholder="Enter one publication or service per line. Leave blank if you don't know."></textarea>
+                            <textarea class="form-control" id="publicationsPackages" name="publications_packages" rows="3" placeholder="Enter one publication or service per line. Leave blank if you don't know."></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="publicationsPackages" class="form-label">Parameters For Publications or Services That Must Be Met</label>
-                            <textarea class="form-control" id="publicationsPackages" name="publicationsPackages" rows="3" placeholder="Please enter at least one parameter. Separate parameters by MUST and PREFERRED. Ex. MUST: DA60+, Google Indexed; PREFERRED: Fashion-focused"></textarea>
+                            <textarea class="form-control" id="publicationsPackages" name="parameters" rows="3" placeholder="Please enter at least one parameter. Separate parameters by MUST and PREFERRED. Ex. MUST: DA60+, Google Indexed; PREFERRED: Fashion-focused"></textarea>
                         </div>
 
                         <div class="mb-4">

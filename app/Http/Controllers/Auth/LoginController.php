@@ -33,6 +33,12 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+     public function showLoginForm()
+    {
+        return view('admin.auth.login'); // Change 'auth.login' to your custom login view path
+    }
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

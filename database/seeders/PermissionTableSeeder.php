@@ -24,12 +24,18 @@ class PermissionTableSeeder extends Seeder
            'user-delete',
            'user-dashboard',
            'admin-dashboard',
-           'submit-order',
-           'request-recommendations',
+           'user-submit-order',
+           'user-request-recommendations',
+           'all-submit-order',
+           'all-request-recommendations',
            'popup-list',
            'popup-create',
            'popup-edit',
            'popup-delete',
+           'publication-list',
+           'publication-create',
+           'publication-edit',
+           'publication-delete',
         ];
 
         foreach ($permissions as $permission) {
