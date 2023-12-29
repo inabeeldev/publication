@@ -54,7 +54,7 @@
         </table>
         </div>
         <div class="card-footer d-flex justify-content-end">
-            {{ $orders->links() }}
+            {{-- {{ $orders->links() }} --}}
         </div>
     </div>
     <!--/ Striped Rows -->

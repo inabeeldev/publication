@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PopupController;
+use App\Http\Controllers\PublicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,9 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+
+    Route::resource('publications', PublicationController::class);
+    Route::get('/filter-publications', [App\Http\Controllers\PublicationController::class, 'filterPublications'])->name('filter-publications');
 
     Route::get('/orders', [App\Http\Controllers\HomeController::class, 'order'])->name('admin-order');
     Route::get('/recommendations', [App\Http\Controllers\HomeController::class, 'recommendation'])->name('admin-recommendation');

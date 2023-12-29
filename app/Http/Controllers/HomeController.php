@@ -37,13 +37,13 @@ class HomeController extends Controller
 
     public function order()
     {
-        $orders = SubmitOrder::with('user')->paginate(1);
+        $orders = SubmitOrder::with('user')->get();
         return view('admin.order.index', compact('orders'));
     }
 
     public function recommendation()
     {
-        $recommendations = Recommendation::with('user')->paginate(1);
+        $recommendations = Recommendation::with('user')->get();
         return view('admin.recommendation.index', compact('recommendations'));
     }
 

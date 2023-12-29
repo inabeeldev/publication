@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -348,6 +349,20 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     @yield('scripts')
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            var rangeSlider = document.getElementById('formRange1');
+            var priceLabel = document.getElementById('priceLabel2');
+
+            // Update the price label when the slider value changes
+            rangeSlider.addEventListener('input', function () {
+                priceLabel.innerText = rangeSlider.value;
+            });
+        });
+    </script>
+
+
     <script>
         $(document).ready(function() {
             $('.select2').select2();

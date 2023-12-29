@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -163,8 +164,30 @@
                 </a>
             </li>
 
+
+            @can('publication-list')
+            <li class="menu-item {{ request()->is('admin/publications') || request()->is('admin/publications/create') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <div data-i18n="pubs">Publications</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('admin/publications') ? 'active' : '' }}">
+                    <a href="{{ route('publications.index') }}" class="menu-link">
+                        <div data-i18n="publ">All Publications</div>
+                    </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('admin/publications/create') ? 'active' : '' }}">
+                    <a href="{{ route('publications.create') }}" class="menu-link">
+                        <div data-i18n="publc">Create Publication</div>
+                    </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
+
             @can('popup-list')
-            <li class="menu-item {{ request()->is('popus') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('admin/popus') ? 'active' : '' }}">
                 <a href="{{ route('popups.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="popup">Popups</div>
@@ -174,18 +197,18 @@
 
             <!-- Users -->
             @can('user-list')
-            <li class="menu-item {{ request()->is('users') || request()->is('users/create') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/users/create') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="users">Users</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item {{ request()->is('users') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class="menu-link">
                         <div data-i18n="all_users">All Users</div>
                     </a>
                     </li>
-                    <li class="menu-item {{ request()->is('users/create') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/users/create') ? 'active' : '' }}">
                     <a href="{{ route('users.create') }}" class="menu-link">
                         <div data-i18n="create_user">Create User</div>
                     </a>
@@ -196,18 +219,18 @@
 
             <!-- Roles -->
             @can('role-list')
-            <li class="menu-item {{ request()->is('roles') || request()->is('roles/create') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('admin/roles') || request()->is('admin/roles/create') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="roles">Roles</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item {{ request()->is('roles') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/roles') ? 'active' : '' }}">
                     <a href="{{ route('roles.index') }}" class="menu-link">
                         <div data-i18n="all_roles">All Roles</div>
                     </a>
                     </li>
-                    <li class="menu-item {{ request()->is('roles/create') ? 'active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/roles/create') ? 'active' : '' }}">
                     <a href="{{ route('roles.create') }}" class="menu-link">
                         <div data-i18n="create_role">Create Role</div>
                     </a>
@@ -369,6 +392,17 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     @yield('scripts')
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            var rangeSlider = document.getElementById('formRange1');
+            var priceLabel = document.getElementById('priceLabel2');
+
+            // Update the price label when the slider value changes
+            rangeSlider.addEventListener('input', function () {
+                priceLabel.innerText = rangeSlider.value;
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.select2').select2();

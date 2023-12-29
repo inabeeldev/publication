@@ -1,4 +1,4 @@
-@extends('customer.layouts.app')
+@extends('admin.layouts.home')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold pt-3 ">Pricing Sheet</h4>
+        <h4 class="fw-bold pt-3 ">Publications</h4>
     </div>
     @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -18,7 +18,7 @@
 
     @endif
     <!-- Striped Rows -->
-    <form action="{{ route('customer-home') }}" method="GET">
+    <form action="{{ route('filter-publications') }}" method="GET">
     <div class=" row mb-3">
        <div class="col-md-6">
         <input type="text" name="publicationName" class="form-control mb-3" id="publicationName" placeholder="Search by Publication Name">
@@ -61,7 +61,7 @@
     </div>
     </form>
     <div class="card">
-        <h5 class="card-header">Pricing Sheet</h5>
+        <h5 class="card-header">All Publications</h5>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped" id="dataTable">
                 <thead>
@@ -128,37 +128,56 @@
 <!-- / Content -->
 
 
+@endsection
 
+
+@section('scripts')
 {{-- <script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('home') }}",
-            columns: [
-                { data: 'Publications', name: 'Publications' },
-                { data: 'Genres', name: 'Genres' },
-                { data: 'Price', name: 'Price' },
-                { data: 'DA', name: 'DA' },
-                { data: 'TAT', name: 'TAT' },
-                { data: 'Region', name: 'Region' },
-                { data: 'Sponsored', name: 'Sponsored' },
-                { data: 'Indexed', name: 'Indexed' },
-                { data: 'Image', name: 'Image' },
-                { data: 'Do_Follow', name: 'Do_Follow' },
-                { data: 'Example', name: 'Example' },
-                // Add more columns as needed
-            ],
-            order: [
-                [2, 'asc'] // Assuming 'Price' is the third column (index 2)
-            ],
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
+    $(document).ready(function () {
+        // Filter function
+        function applyFilters() {
+            var publicationNameFilter = $('#publicationName').val().toLowerCase();
+            var regionFilter = $('#regions').val();
+            var genreFilter = $('#genres').val();
+            var priceRangeFilter = $('#formRange1').val();
+
+            $('.publication-row').each(function () {
+                var publicationName = $(this).find('td:first-child strong').text().toLowerCase();
+                var region = $(this).find('td:nth-child(6)').text().toLowerCase();
+                var genres = $(this).find('td:nth-child(2)').text().toLowerCase();
+                var price = parseFloat($(this).find('td:nth-child(3)').text());
+
+                // Check if the row matches the filters
+                var matches = true;
+                if (publicationNameFilter !== '' && !publicationName.includes(publicationNameFilter)) {
+                    matches = false;
+                }
+                if (regionFilter !== '' && regionFilter !== 'All Publications' && region !== regionFilter) {
+                    matches = false;
+                }
+                if (genreFilter !== '' && !genres.includes(genreFilter)) {
+                    matches = false;
+                }
+                if (priceRangeFilter !== '' && price > parseFloat(priceRangeFilter)) {
+                    matches = false;
+                }
+
+                // Show/hide the row based on the filter results
+                if (matches) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        // Event listeners for filter elements
+        $('#publicationName, #regions, #genres, #formRange1').on('input change', function () {
+            applyFilters();
         });
+
+        // Initial filter application
+        applyFilters();
     });
 </script> --}}
-
-
 @endsection
