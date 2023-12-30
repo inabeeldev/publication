@@ -70,7 +70,7 @@
                 <div class="app-brand justify-content-center">
                     <a href="index.html" class="app-brand-link gap-2">
                         <span class="app-brand-logo demo">
-                            <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="Your Logo" class="logo-image">
+                            <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="GetClout" class="logo-image">
                         </span>
                     </a>
                 </div>

@@ -16,6 +16,13 @@
             <a href="{{ route('request-recommendation') }}" class="btn btn-secondary text-white">Request Recommendations</a>
         </div> --}}
     </div>
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    @endif
     <!-- Striped Rows -->
     <div class="card">
         <h5 class="card-header">List of Users</h5>
@@ -26,7 +33,6 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
                 <th>Approve</th>
                 <th>Action</th>
             </tr>
@@ -37,7 +43,6 @@
                     <td><strong>{{ $loop->iteration }}</strong></td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->user_type }}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input approve-switch" type="checkbox" id="approveSwitch{{ $user->id }}" {{ $user->is_approved ? 'checked' : '' }}>

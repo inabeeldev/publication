@@ -197,7 +197,7 @@
 
             <!-- Users -->
             @can('user-list')
-            <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/users/create') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/staff-users') || request()->is('admin/users/create') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="users">Users</div>
@@ -205,9 +205,14 @@
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class="menu-link">
-                        <div data-i18n="all_users">All Users</div>
+                        <div data-i18n="all_users">Customers</div>
                     </a>
                     </li>
+                    <li class="menu-item {{ request()->is('admin/staff-users') ? 'active' : '' }}">
+                        <a href="{{ route('staff-users') }}" class="menu-link">
+                            <div data-i18n="staff_users">Staff</div>
+                        </a>
+                        </li>
                     <li class="menu-item {{ request()->is('admin/users/create') ? 'active' : '' }}">
                     <a href="{{ route('users.create') }}" class="menu-link">
                         <div data-i18n="create_user">Create User</div>

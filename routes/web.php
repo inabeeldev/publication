@@ -64,8 +64,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/recommendations', [App\Http\Controllers\HomeController::class, 'recommendation'])->name('admin-recommendation');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::get('/staff-users', [App\Http\Controllers\UserController::class, 'staff'])->name('staff-users');
     Route::post('/update-approval/{id}', [App\Http\Controllers\UserController::class, 'updateApproval'])->name('update-approval');
     Route::resource('products', ProductController::class);
     Route::resource('popups', PopupController::class);
+    Route::post('/toggle-popup/{id}', [App\Http\Controllers\PopupController::class, 'togglePopup'])->name('toggle.popup');
 
 });

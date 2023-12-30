@@ -17,6 +17,13 @@
             </div>
 
     @endif
+    @if(session('message'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ session('message') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+    @endif
 
     @if($errors->any())
         <div class="alert alert-danger alert-dismissible fade show">
@@ -54,15 +61,16 @@
                             <label for="publicationsPackages" class="form-label">Enter Content of Popup</label>
                             <textarea class="form-control" id="summernote" name="content" ></textarea>
                         </div>
+                        <input type="hidden" name="status" value="disable">
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="defaultFormControlInput" class="form-label">Status</label>
                             <select class="form-select" name="status" id="regions">
                                 <option value="">Choose Status</option>
                                 <option value="enable">Active</option>
                                 <option value="disable">Inactive</option>
                             </select>
-                        </div>
+                        </div> --}}
 
 
                         <!-- Submit Button -->
@@ -94,13 +102,29 @@
                     <td><strong>{{ $loop->iteration }}</strong></td>
                     <td>{{ $popup->type == "welcome" ? "Welcome Popup" : "Daily Popup" }}</td>
                     <td>{{ $popup->created_at }}</td>
-                    <td>{{ $popup->status }}</td>
+                    <td>
+                        <form method="post" action="{{ route('toggle.popup', ['id' => $popup->id]) }}">
+                            @csrf
+                            <div class="form-check form-switch">
+                                <input class="form-check-input approve-switch" type="checkbox" id="approveSwitch{{ $popup->id }}" {{ $popup->status === 'enable' ? 'checked' : '' }} onchange="this.form.submit()">
+                                <label class="form-check-label" for="approveSwitch{{ $popup->id }}"></label>
+                            </div>
+                        </form>
+
+                    </td>
                     <td>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popupModal{{ $popup->id }}">
                             Show
                         </button>
                     </td>
-                    <td><button class="btn btn-danger">Delete</button></td>
+                    <td>
+                        <form method="post" action="{{ route('popups.destroy', ['popup' => $popup->id]) }}" onsubmit="return confirm('Are you sure you want to delete this popup?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </td>
                 </tr>
                 <!-- Popup Modal for each row -->
                 <div class="modal fade" id="popupModal{{ $popup->id }}" tabindex="-1" aria-labelledby="popupModalLabel{{ $popup->id }}" aria-hidden="true">

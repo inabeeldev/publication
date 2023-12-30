@@ -75,6 +75,32 @@ class PopupController extends Controller
         return redirect()->route('popups.index')->with('success', 'Popup created successfully.');
     }
 
+    public function togglePopup($id)
+    {
+        $popup = Popup::findOrFail($id);
+
+        // Check if the user is trying to enable the popup
+        if ($popup->status === 'disable') {
+            // Check if there is already an enabled popup of the same type
+            $existingEnabledPopup = Popup::where('type', $popup->type)
+                ->where('status', 'enable')
+                ->first();
+
+            if ($existingEnabledPopup) {
+                // Redirect back with a message indicating that only one popup type can be enabled at a time
+                return redirect()->back()->with('message', 'You can only enable one popup type at a time.');
+            }
+        }
+
+        // Toggle the status between 'enable' and 'disable'
+        $popup->status = ($popup->status === 'enable') ? 'disable' : 'enable';
+        $popup->save();
+
+        return redirect()->back()->with('success', 'Popup status updated successfully.');; // Redirect back to the previous page
+    }
+
+
+
     /**
      * Display the specified resource.
      */
@@ -104,6 +130,9 @@ class PopupController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $popup = Popup::findOrFail($id);
+        $popup->delete();
+
+        return redirect()->back()->with('message', 'Popup deleted successfully');
     }
 }

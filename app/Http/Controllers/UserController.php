@@ -18,8 +18,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('user_type', 'customer')->get();
         return view('admin.user.index', compact('users'));
+    }
+
+    public function staff()
+    {
+        $users = User::where('user_type', '<>', 'customer')->with('roles')->get();
+
+        return view('admin.user.staff', compact('users'));
     }
 
     /**
@@ -53,11 +60,12 @@ class UserController extends Controller
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+        $input['is_approved'] = true;
 
         $user = User::create($input);
         $user->assignRole($request->input('role'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('staff-users')
                         ->with('success','User created successfully');
     }
 
@@ -95,7 +103,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::all(); // Assuming you want to show all roles in the edit form
+        return view('admin.user.edit', compact('user', 'roles'));
     }
 
     /**
@@ -103,7 +113,37 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'user_type' => 'required|in:admin,manager',
+            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required|exists:roles,name',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  // Pass the validation errors to the view
+                ->withInput();           // Pass the old input data to the view
+        }
+
+        // Update user details
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'user_type' => $request->user_type,
+            // If password is provided, update it
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+        ]);
+
+        // Assign role to the user
+        $user->syncRoles([$request->role]);
+
+        return redirect()->route('staff-users')
+                        ->with('success','User updated successfully');
     }
 
     /**
@@ -111,6 +151,14 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // Unsync roles before deleting the user
+        $user->roles()->detach();
+
+        // Delete the user
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
 }
