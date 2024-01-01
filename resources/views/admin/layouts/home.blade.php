@@ -145,24 +145,23 @@
 
 
 
-
-
-            <!-- Popup messages -->
-
+            @can('all-submit-order')
             <li class="menu-item {{ request()->is('admin/orders') ? 'active' : '' }}">
                 <a href="{{ route('admin-order') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="popup">Orders</div>
                 </a>
             </li>
+            @endcan
 
-
+            @can('all-request-recommendations')
             <li class="menu-item {{ request()->is('admin/recommendations') ? 'active' : '' }}">
                 <a href="{{ route('admin-recommendation') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="popup">Recommendations</div>
                 </a>
             </li>
+            @endcan
 
 
             @can('publication-list')
@@ -177,11 +176,13 @@
                         <div data-i18n="publ">All Publications</div>
                     </a>
                     </li>
+                    @can('publication-list')
                     <li class="menu-item {{ request()->is('admin/publications/create') ? 'active' : '' }}">
                     <a href="{{ route('publications.create') }}" class="menu-link">
                         <div data-i18n="publc">Create Publication</div>
                     </a>
                     </li>
+                    @endcan
                 </ul>
             </li>
             @endcan

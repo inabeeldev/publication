@@ -41,16 +41,43 @@
                 <tr>
                     <td><strong>{{ $loop->iteration }}</strong></td>
                     <td>{{ $role->name }}</td>
-                    <td>{{ $role->created_at }}</td>
+                    <td>{{ $role->created_at->format('d-M-Y') }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="User Actions">
-                            <button type="button" class="btn btn-primary btn-show" data-role-id="{{ $role->id }}">Show</button>
-                            <button type="button" class="btn btn-warning btn-edit" data-role-id="{{ $role->id }}">Edit</button>
-                            <button type="button" class="btn btn-danger btn-delete" data-role-id="{{ $role->id }}">Delete</button>
+                            <button type="button" class="btn btn-primary btn-show" data-bs-toggle="modal" data-bs-target="#showRoleModal{{ $role->id }}">Show</button>
+                            <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-warning btn-edit">Edit</a>
+                            <form method="post" action="{{ route('roles.destroy', ['role' => $role->id]) }}" onsubmit="return confirm('Are you sure you want to delete this role?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+                            </form>
                         </div>
                     </td>
 
                 </tr>
+                 <!-- Show Modal -->
+                    <div class="modal fade" id="showRoleModal{{ $role->id }}" tabindex="-1" aria-labelledby="showRoleModalLabel{{ $role->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="showRoleModalLabel{{ $role->id }}">Role Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Add content to display role details -->
+                                    <p><strong>Role Name:</strong> {{ $role->name }}</p>
+                                    <p><strong>Created Date:</strong> {{ $role->created_at->format('d-M-Y') }}</p>
+                                    <p><strong>Permissions:</strong></p>
+                                    <ul>
+                                        @foreach($role->permissions as $permission)
+                                            <li>{{ $permission->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <!-- Add more details as needed -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             </tbody>
         </table>

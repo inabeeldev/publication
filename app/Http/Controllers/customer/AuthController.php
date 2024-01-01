@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -99,18 +100,34 @@ class AuthController extends Controller
                 Auth::logout(); // Log out the user if not a customer
                 return redirect()->route('login-form')
                     ->withInput($request->only('email', 'remember'))
-                    ->withErrors(['email' => 'You are not authorized to log in from customer login page.']); // Customize the error message
+                    ->withErrors(['email' => 'You are not authorized to log in from the customer login page.']); // Customize the error message
             }
+
+            // Check if it's the user's first login
+            // if ($user->first_login) {
+
+            //     // Set cookie for welcome popup
+            //     Cookie::queue('show_welcome_popup', 'true', 60 * 24 * 365); // 1 year expiration
+            // }
+
+            // Check for daily popup logic
+            // $oneDayAgo = now()->subDay();
+            // if ($user->last_login < $oneDayAgo) {
+            //     // Display daily popup logic
+
+            //     // Update last login date
+            //     $user->update(['last_login' => now()]);
+            // }
 
             // Authentication passed...
             return redirect()->intended(route('customer-home')); // Change 'dashboard' to your desired route after login
         }
 
-        // Authentication failed...
         return redirect()->route('login-form')
             ->withInput($request->only('email', 'remember'))
-            ->withErrors(['email' => __('auth.failed')]); // You can customize the error message as needed
+            ->withErrors(['email' => 'Invalid login credentials.']); // Customize the error message
     }
+
 
     public function logout(Request $request)
     {

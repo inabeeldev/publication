@@ -73,7 +73,12 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::find($id);
+        $permissions = Permission::all();
+
+        // You can add more logic here based on your requirements
+
+        return view('admin.role.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -81,7 +86,34 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $role = Role::find($id);
+
+        if (!$role) {
+            abort(404); // Or handle the case differently (redirect, show a message, etc.)
+        }
+
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        // Update the role's attributes
+        $role->update([
+            'name' => $request->input('name'),
+            // Add other attributes as needed
+        ]);
+
+        // Sync the permissions for the role
+        $role->permissions()->sync($request->input('permission', []));
+
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 
     /**
@@ -89,6 +121,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::find($id);
+        $role->delete();
+
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
     }
 }

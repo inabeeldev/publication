@@ -293,7 +293,7 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by
+                  , Website Development by
                   <a href="https://apnadevs.com" target="_blank" class="footer-link fw-bolder">ADevs</a>
                 </div>
               </div>
