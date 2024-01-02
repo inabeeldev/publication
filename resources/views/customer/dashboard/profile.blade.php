@@ -45,72 +45,51 @@
           </div>
           <hr class="my-0" /> --}}
           <div class="card-body">
-            <form id="formAccountSettings" method="POST" onsubmit="return false">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+            @endif
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                </div>
+            @endif
+            <form id="formAccountSettings" method="POST" action="{{ route('update-profile') }}">
+                @csrf
               <div class="row">
                 <div class="mb-3 col-md-6">
-                  <label for="firstName" class="form-label">Name</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value="John"
-                    autofocus
-                  />
+                    <label for="firstName" class="form-label">Name</label>
+                    <input class="form-control" type="text" id="name" name="name" value="{{ $customer->name }}" autofocus />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label for="email" class="form-label">E-mail</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    id="email"
-                    name="email"
-                    value="john.doe@example.com"
-                    placeholder="john.doe@example.com"
-                  />
+                    <label for="email" class="form-label">E-mail</label>
+                    <input class="form-control" type="text" id="email" name="email" value="{{ $customer->email }}" readonly />
                 </div>
                 <div class="mb-3 col-md-6">
-                    <label for="profile_url" class="form-label">Agency URL or Personal LinkedIn (If solo professional)</label>
-                    <input type="text" class="form-control" id="profile_url" name="profile_url" placeholder="https://" />
-                  </div>
+                    <label for="firstName" class="form-label">Profile Url</label>
+                    <input class="form-control" type="text" id="profile_url" name="profile_url" value="{{ $customer->profile_url }}" autofocus />
+                </div>
 
                 <div class="mb-3 col-md-6">
-                  <label class="form-label" for="phoneNumber">Phone Number</label>
-                  <div class="input-group input-group-merge">
-                    {{-- <span class="input-group-text">US (+1)</span> --}}
-                    <input
-                      type="text"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      class="form-control"
-                      placeholder="202 555 0111"
-                    />
-                  </div>
+                    <label for="firstName" class="form-label">Mobile Number</label>
+                    <input class="form-control" type="number" id="mobile_number" name="mobile_number" value="{{ $customer->mobile_number }}" autofocus />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Address" />
+                  <label for="address" class="form-label">country</label>
+                  <input type="text" class="form-control" id="country" name="country" value="{{ $customer->country }}" />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label for="state" class="form-label">State</label>
-                  <input class="form-control" type="text" id="state" name="state" placeholder="California" />
+                    <label for="password" class="form-label">New Password</label>
+                    <input class="form-control" type="password" id="password" name="password" />
                 </div>
-                <div class="mb-3 col-md-6">
-                  <label for="zipCode" class="form-label">Zip Code</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="zipCode"
-                    name="zipCode"
-                    placeholder="231465"
-                    maxlength="6"
-                  />
-                </div>
-                <div class="mb-3 col-md-6">
-                    <label for="state" class="form-label">Country</label>
-                    <input class="form-control" type="text" id="country" name="country" placeholder="USA" />
-                  </div>
-
 
               </div>
               <div class="mt-2">
@@ -130,20 +109,21 @@
                 <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
               </div>
             </div>
-            <form id="formAccountDeactivation" onsubmit="return false">
-              <div class="form-check mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  name="accountActivation"
-                  id="accountActivation"
-                />
-                <label class="form-check-label" for="accountActivation"
-                  >I confirm my account deletion</label
-                >
-              </div>
-              <button type="submit" class="btn btn-danger deactivate-account">Delete Account</button>
+            <!-- Add this form inside the existing content section -->
+            <form id="formAccountDeactivation" method="POST" action="{{ route('deactivate-account') }}">
+                @csrf
+                <div class="form-check mb-3">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="accountActivation"
+                        id="accountActivation"
+                    />
+                    <label class="form-check-label" for="accountActivation">I confirm my account deletion</label>
+                </div>
+                <button type="submit" class="btn btn-danger deactivate-account">Delete Account</button>
             </form>
+
           </div>
         </div>
       </div>

@@ -290,7 +290,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -299,7 +299,7 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
-                    <li>
+                    {{-- <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
@@ -307,7 +307,7 @@
                     </li>
                     <li>
                       <div class="dropdown-divider"></div>
-                    </li>
+                    </li> --}}
                     <li>
                       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -342,7 +342,7 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by
+                  , Website Development by
                   <a href="https://apnadevs.com" target="_blank" class="footer-link fw-bolder">ADevs</a>
                 </div>
               </div>

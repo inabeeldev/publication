@@ -35,8 +35,10 @@ Route::prefix('customer')->group(function () {
 
 Route::prefix('customer')->middleware(['auth', 'customer'])->group(function () {
 
-    Route::get('/profile', [App\Http\Controllers\customer\HomeController::class, 'profile'])->name('customer-profile');
     Route::get('/home', [App\Http\Controllers\customer\HomeController::class, 'index'])->name('customer-home');
+    Route::get('/profile', [App\Http\Controllers\customer\HomeController::class, 'profile'])->name('customer-profile');
+    Route::post('/profile/update', [App\Http\Controllers\customer\HomeController::class, 'updateProfile'])->name('update-profile');
+    Route::post('/deactivate-account', [App\Http\Controllers\customer\HomeController::class, 'deactivateAccount'])->name('deactivate-account');
 
 
     Route::get('/submit-order/list', [App\Http\Controllers\customer\SubmitOrderController::class, 'listSubmitOrder'])->name('list-submit-order');

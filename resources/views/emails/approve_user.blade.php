@@ -57,11 +57,11 @@
         .attribution {
             margin-top: 20px;
             font-size: 12px;
-            color: #ffffff;
+            color: #5c0202;
         }
 
         .attribution a {
-            color: #ffffff;
+            color: #D45C00;
             text-decoration: none;
         }
     </style>
@@ -76,6 +76,7 @@
         <p>Dear {{ $user->name }},</p>
 
         <p>We are pleased to inform you that your account has been approved.</p>
+        <p>Your Email: <strong>{{ $user->email }}</strong></p>
         <p>Your new password is: <strong>{{ $password }}</strong></p>
 
         <p>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\customer;
 
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,61 @@ class HomeController extends Controller
 
     public function profile()
     {
-        return view('customer.dashboard.profile');
+        $customer = auth()->user();
+        return view('customer.dashboard.profile', compact('customer'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore(auth()->id()), // Ensure email uniqueness excluding the current user
+            ],
+            'profile_url' => 'nullable|string|max:255',
+            'mobile_number' => 'nullable|numeric', // Adjust the validation rules as needed
+            'country' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:8', // Adjust the validation rules as needed
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  // Pass the validation errors to the view
+                ->withInput();           // Pass the old input data to the view
+        }
+
+        // Update customer information in the database
+        $customer = auth()->user();
+        $customer->update($request->all());
+
+        return redirect()->route('customer-profile')->with('success', 'Profile updated successfully!');
+    }
+
+    public function deactivateAccount(Request $request)
+    {
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'accountActivation' => 'required|accepted',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  // Pass the validation errors to the view
+                ->withInput();           // Pass the old input data to the view
+        }
+
+        // Deactivate the account (soft delete or update status as needed)
+        $customer = auth()->user();
+        $customer->delete(); // Soft delete, adjust as needed
+
+        // Logout the user
+        auth()->logout();
+
+        return redirect()->route('login-form')->with('success', 'Account deactivated successfully.');
     }
 
     public function index(Request $request)
