@@ -22,7 +22,7 @@
     @endif
 
     <!-- form section -->
-    <div class="row">
+    <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Edit User</h5>

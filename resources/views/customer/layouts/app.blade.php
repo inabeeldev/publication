@@ -41,6 +41,8 @@
     <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}" />
 
+    @yield('styles')
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
@@ -260,11 +262,11 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{{ route('customer-logout') }}" onclick="event.preventDefault();
+                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
-                        <form id="logout-form" action="{{ route('customer-logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                       </a>
@@ -349,7 +351,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
     @yield('scripts')
-
+    @yield('scripts20')
     <script defer>
         document.addEventListener('DOMContentLoaded', function () {
             var rangeSlider = document.getElementById('formRange1');

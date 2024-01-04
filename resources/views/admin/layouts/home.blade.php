@@ -41,6 +41,8 @@
     <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}" />
 
+    @yield('styles2')
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
@@ -200,7 +202,7 @@
             @can('user-list')
             <li class="menu-item {{ request()->is('admin/users') || request()->is('admin/staff-users') || request()->is('admin/users/create') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <i class="menu-icon tf-icons bx bx-user"></i>
                     <div data-i18n="users">Users</div>
                 </a>
                 <ul class="menu-sub">

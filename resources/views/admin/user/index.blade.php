@@ -7,14 +7,32 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold pt-3 ">All Users</h4>
+    <div class="row animate__animated animate__fadeIn">
+        <div class="col-lg-12 mb-4 order-0">
+            <div class="card">
+              <div class="d-flex align-items-end row">
+                <div class="col-sm-9">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">All Customers</h5>
 
-        {{-- <!-- Import and Export Buttons -->
-        <div class="d-flex">
-            <a href="{{ route('submit-order') }}" class="btn btn-primary me-2 text-white">Submit an order</a>
-            <a href="{{ route('request-recommendation') }}" class="btn btn-secondary text-white">Request Recommendations</a>
-        </div> --}}
+
+                    <a href="{{ route('staff-users') }}" class="btn btn-sm btn-outline-primary">Open Staff</a>
+                  </div>
+                </div>
+                <div class="col-sm-3 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-4">
+                    <img
+                      src="{{ asset('public/assets/img/illustrations/man-with-laptop-light.png') }}"
+                      height="100"
+                      alt="View Badge User"
+                      data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                      data-app-light-img="illustrations/man-with-laptop-light.png"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,7 +42,7 @@
 
     @endif
     <!-- Striped Rows -->
-    <div class="card">
+    <div class="card animate__animated animate__fadeInUp">
         <h5 class="card-header">List of Users</h5>
         <div class="table-responsive text-nowrap">
         <table class="table table-striped">

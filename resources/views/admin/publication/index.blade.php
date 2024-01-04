@@ -17,6 +17,32 @@
             </div>
 
     @endif
+        {{-- <div class="card accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              type="button"
+              class="accordion-button"
+              data-bs-toggle="collapse"
+              data-bs-target="#accordionOne"
+              aria-expanded="true"
+              aria-controls="accordionOne"
+            >
+              Accordion Item 1
+            </button>
+          </h2>
+
+          <div
+            id="accordionOne"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              Lemon drops chocolate cake gummies carrot cake chupa chups muffin topping. Sesame snaps icing
+              marzipan gummi bears macaroon dragée danish caramels powder. Bear claw dragée pastry topping
+              soufflé. Wafer gummi bears marshmallow pastry pie.
+            </div>
+          </div>
+        </div> --}}
     <!-- Striped Rows -->
     <form action="{{ route('filter-publications') }}" method="GET">
     <div class=" row mb-3">
@@ -24,12 +50,14 @@
         <input type="text" name="publicationName" class="form-control mb-3" id="publicationName" placeholder="Search by Publication Name">
        </div>
        <div class="col-md-6">
-        <select class="form-select " id="regions" name="publication_type">
+        <select class="form-select " name="type">
             <option value="">Choose Publication type</option>
             <option value="">All Publications</option>
-            <option value="">TV</option>
-            <option value="">Best Sellers</option>
-            <option value="">PR Bundles</option>
+            <option value="tv">TV</option>
+            <option value="listicles">Listicles</option>
+            <option value="best_sellers">Best Sellers</option>
+            <option value="pr_bundles">PR Bundles</option>
+            <option value="print">Print</option>
         </select>
        </div>
        <div class="col-md-6 mb-3">
@@ -60,11 +88,11 @@
           <button type="submit" class="btn btn-primary">Apply Filters</button>
     </div>
     </form>
-    <div class="card">
-        <h5 class="card-header">All Publications</h5>
+    <div class="card" style="background-color: #2A3A4C;">
+        <h4 class="card-header text-light">All Publications</h4>
         <div class="table-responsive text-nowrap">
-            <table class="table table-striped" id="dataTable">
-                <thead>
+            <table class="table table-striped table-dark" id="dataTable">
+                <thead class="">
                     <tr>
                         <th>Publications</th>
                         <th>Genres</th>
@@ -132,52 +160,72 @@
 
 
 @section('scripts')
-{{-- <script>
-    $(document).ready(function () {
-        // Filter function
-        function applyFilters() {
-            var publicationNameFilter = $('#publicationName').val().toLowerCase();
-            var regionFilter = $('#regions').val();
-            var genreFilter = $('#genres').val();
-            var priceRangeFilter = $('#formRange1').val();
 
-            $('.publication-row').each(function () {
-                var publicationName = $(this).find('td:first-child strong').text().toLowerCase();
-                var region = $(this).find('td:nth-child(6)').text().toLowerCase();
-                var genres = $(this).find('td:nth-child(2)').text().toLowerCase();
-                var price = parseFloat($(this).find('td:nth-child(3)').text());
+@endsection
 
-                // Check if the row matches the filters
-                var matches = true;
-                if (publicationNameFilter !== '' && !publicationName.includes(publicationNameFilter)) {
-                    matches = false;
-                }
-                if (regionFilter !== '' && regionFilter !== 'All Publications' && region !== regionFilter) {
-                    matches = false;
-                }
-                if (genreFilter !== '' && !genres.includes(genreFilter)) {
-                    matches = false;
-                }
-                if (priceRangeFilter !== '' && price > parseFloat(priceRangeFilter)) {
-                    matches = false;
-                }
 
-                // Show/hide the row based on the filter results
-                if (matches) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
+@section('styles2')
+<style>
+    /* Add your custom styles here */
+
+    /* Animation for the alert */
+    .alert {
+        animation: slideInUp 0.5s ease-in-out;
+    }
+
+    /* Animation for the form */
+    form {
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    /* Add more animations and styles as needed */
+
+    @keyframes slideInUp {
+        0% {
+            transform: translateY(100%);
+            opacity: 0;
         }
 
-        // Event listeners for filter elements
-        $('#publicationName, #regions, #genres, #formRange1').on('input change', function () {
-            applyFilters();
-        });
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
 
-        // Initial filter application
-        applyFilters();
-    });
-</script> --}}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+    .loader-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #db3442;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
 @endsection

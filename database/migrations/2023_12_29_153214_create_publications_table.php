@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
             $table->string('genres');
             $table->decimal('price', 8, 2);
             $table->integer('da');

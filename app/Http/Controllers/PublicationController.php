@@ -34,8 +34,8 @@ class PublicationController extends Controller
             $publications->where('name', 'like', '%' . $request->input('publicationName') . '%');
         }
 
-        if ($request->filled('publication_type')) {
-            $publications->where('publication_type', $request->input('publication_type'));
+        if ($request->filled('type')) {
+            $publications->where('type', $request->input('type'));
         }
 
         if ($request->filled('regions')) {
@@ -71,6 +71,7 @@ class PublicationController extends Controller
         // Define validation rules
         $rules = [
             'name' => 'required|string|max:255',
+            'type' => 'required',
             'genres' => 'required|string|max:255',
             'price' => 'required|numeric',
             'da' => 'required|integer',

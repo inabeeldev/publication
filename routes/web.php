@@ -23,13 +23,15 @@ use App\Http\Controllers\UserController;
 // });
 
 Route::get('/', [App\Http\Controllers\customer\AuthController::class, 'loginForm'])->name('login-form');
+    Route::post('/logout', [App\Http\Controllers\customer\AuthController::class, 'logout'])->name('logout');
+
 Route::prefix('customer')->group(function () {
 
 
     Route::get('/register', [App\Http\Controllers\customer\AuthController::class, 'registerForm'])->name('register-form');
     Route::post('/register/post', [App\Http\Controllers\customer\AuthController::class, 'register'])->name('customer-register');
     Route::post('/login/post', [App\Http\Controllers\customer\AuthController::class, 'login'])->name('customer-login');
-    Route::post('/logout', [App\Http\Controllers\customer\AuthController::class, 'logout'])->name('customer-logout');
+    // Route::post('/logout', [App\Http\Controllers\customer\AuthController::class, 'logout'])->name('customer-logout');
 
 });
 
@@ -50,12 +52,11 @@ Route::prefix('customer')->middleware(['auth', 'customer'])->group(function () {
     Route::post('/request-recommendation/post', [App\Http\Controllers\customer\RecommendationController::class, 'postRequestRecommendation'])->name('post-request-recommendation');
 });
 
-Route::prefix('admin')->group(function () {
-    // Authentication Routes
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-});
+// Route::prefix('admin')->group(function () {
+//     // Authentication Routes
+//     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+//     Route::post('/login', [LoginController::class, 'login']);
+// });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 

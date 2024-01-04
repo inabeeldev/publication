@@ -37,7 +37,7 @@
         </div>
     @endif
     <!-- form section -->
-    <div class="row">
+    <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Add New popup</h5>
@@ -82,7 +82,7 @@
     </div>
 
 
-    <div class="card">
+    <div class="card animate__animated animate__fadeIn">
         <h5 class="card-header">Popups</h5>
         <div class="table-responsive text-nowrap">
         <table class="table table-striped" id="dataTable">
@@ -164,9 +164,6 @@
 <!-- / Content -->
 
 
-
-
-
 @endsection
 
 @section('scripts')
@@ -176,3 +173,4 @@
     });
   </script>
 @endsection
+

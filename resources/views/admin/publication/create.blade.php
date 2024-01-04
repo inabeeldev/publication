@@ -30,7 +30,7 @@
     </div>
     @endif
     <!-- form section -->
-    <div class="row">
+    <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Create A publication</h5>
@@ -47,6 +47,18 @@
                                 placeholder="Publication name"
                                 aria-describedby="publicationNameHelp"
                             />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Publication Type</label>
+                            <select name="type" id="type" class="form-control">
+                                <option value="">Choose One</option>
+                                <option value="tv">TV</option>
+                                <option value="listicles">Listicles</option>
+                                <option value="best_sellers">Best Sellers</option>
+                                <option value="pr_bundles">PR Bundles</option>
+                                <option value="print">Print</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">

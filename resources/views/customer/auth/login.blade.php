@@ -133,8 +133,7 @@
                         </div>
 
                 @endif
-              <h4 class="mb-2">Welcome to getclout! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <h3 class="mb-4 text-center">Sign In</h3>
 
               <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('customer-login') }}">
                 @csrf

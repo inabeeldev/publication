@@ -96,37 +96,21 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->has('remember'))) {
             // Check user type
             $user = Auth::user();
+
             if ($user->user_type !== 'customer') {
-                Auth::logout(); // Log out the user if not a customer
-                return redirect()->route('login-form')
-                    ->withInput($request->only('email', 'remember'))
-                    ->withErrors(['email' => 'You are not authorized to log in from the customer login page.']); // Customize the error message
+                // Redirect to admin orders if user type is not customer
+                return redirect()->intended(route('admin-order'));
             }
 
-            // Check if it's the user's first login
-            // if ($user->first_login) {
-
-            //     // Set cookie for welcome popup
-            //     Cookie::queue('show_welcome_popup', 'true', 60 * 24 * 365); // 1 year expiration
-            // }
-
-            // Check for daily popup logic
-            // $oneDayAgo = now()->subDay();
-            // if ($user->last_login < $oneDayAgo) {
-            //     // Display daily popup logic
-
-            //     // Update last login date
-            //     $user->update(['last_login' => now()]);
-            // }
-
-            // Authentication passed...
-            return redirect()->intended(route('customer-home')); // Change 'dashboard' to your desired route after login
+            // Redirect to customer home if user type is customer
+            return redirect()->intended(route('customer-home'));
         }
 
         return redirect()->route('login-form')
             ->withInput($request->only('email', 'remember'))
             ->withErrors(['email' => 'Invalid login credentials.']); // Customize the error message
     }
+
 
 
     public function logout(Request $request)
