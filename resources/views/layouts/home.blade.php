@@ -224,6 +224,14 @@
                 </ul>
             </li>
             @endcan
+            @can('user-list')
+            <li class="menu-item {{ request()->is('customers-queries') ? 'active' : '' }}">
+                <a href="{{ route('customers-queries') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-detail"></i>
+                    <div data-i18n="popup">Customer Queries</div>
+                </a>
+            </li>
+            @endcan
 
             <!-- Roles -->
             @can('role-list')
@@ -246,6 +254,8 @@
                 </ul>
             </li>
             @endcan
+
+
         </ul>
         </aside>
         <!-- / Menu -->

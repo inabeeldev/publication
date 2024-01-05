@@ -6,6 +6,7 @@ use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,6 +63,23 @@ class HomeController extends Controller
         $customer->update($request->all());
 
         return redirect()->route('customer-profile')->with('success', 'Profile updated successfully!');
+    }
+
+    public function userQuery(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'message' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  // Pass the validation errors to the view
+                ->withInput();           // Pass the old input data to the view
+        }
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+        Message::create($input);
+
+        return redirect()->route('customer-profile')->with('success', 'Your query submitted successfully!');
     }
 
     public function deactivateAccount(Request $request)

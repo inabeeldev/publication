@@ -27,6 +27,7 @@ class PublicationController extends Controller
 
     public function filterPublications(Request $request)
     {
+        // dd($request->all());
         // Your filtering logic goes here
         $publications = Publication::query();
 
@@ -54,11 +55,14 @@ class PublicationController extends Controller
 
         if ($request->filled('price_range') && $request->input('price_range') > 0) {
             $publications->whereBetween('price', [0, $request->input('price_range')]);
+            // dd($publications->get());
         }
+
 
         // Add similar logic for other filters...
 
         $filteredPublications = $publications->get();
+
 
         return view('admin.publication.index', ['publications' => $filteredPublications]);
     }
@@ -81,8 +85,8 @@ class PublicationController extends Controller
             'indexed' => 'required|in:Yes,No',
             'has_image' => 'required|in:Yes,No',
             'do_follow' => 'required|in:Yes,No',
-            'example' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'example' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         // Create a new validator instance
@@ -123,9 +127,15 @@ class PublicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $publication = Publication::find($id);
+
+        if (!$publication) {
+            return redirect()->route('publications.index')->with('error', 'Publication not found');
+        }
+
+        return view('admin.publication.edit', compact('publication'));
     }
 
     /**
@@ -133,14 +143,79 @@ class PublicationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $rules = [
+            'name' => 'required|string|max:255',
+            'type' => 'required',
+            'genres' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'da' => 'required|integer',
+            'tat' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'sponsored' => 'required|in:Yes,No',
+            'indexed' => 'required|in:Yes,No',
+            'has_image' => 'required|in:Yes,No',
+            'do_follow' => 'required|in:Yes,No',
+            'example' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+
+        // Create a new validator instance
+        $validator = Validator::make($request->all(), $rules);
+
+        // Check for validation failure
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $publication = Publication::find($id);
+
+        if (!$publication) {
+            return redirect()->route('publications.index')->with('error', 'Publication not found');
+        }
+
+        $publication->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'genres' => $request->input('genres'),
+            'da' => $request->input('da'),
+            'tat' => $request->input('tat'),
+            'price' => $request->input('price'),
+            'region' => $request->input('region'),
+            'sponsored' => $request->input('sponsored'),
+            'indexed' => $request->input('indexed'),
+            'has_image' => $request->input('has_image'),
+            'do_follow' => $request->input('do_follow'),
+            'example' => $request->input('example'),
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/publications'), $imageName);
+            $publication->update(['image' => $imageName]);
+        }
+
+        return redirect()->route('publications.index')->with('success', 'Publication updated successfully');
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $publication = Publication::find($id);
+
+        if (!$publication) {
+            return redirect()->route('publications.index')->with('error', 'Publication not found.');
+        }
+
+        $publication->delete();
+
+        return redirect()->route('publications.index')->with('success', 'Publication deleted successfully.');
     }
+
 }

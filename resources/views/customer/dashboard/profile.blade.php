@@ -68,9 +68,9 @@
           <!-- /Account -->
         </div>
         <div class="card animate__animated animate__fadeIn">
-          <h5 class="card-header">Delete Account</h5>
+          <h5 class="card-header">Have any query?</h5>
           <div class="card-body">
-            <div class="mb-3 col-12 mb-0">
+            {{-- <div class="mb-3 col-12 mb-0">
               <div class="alert alert-warning">
                 <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
                 <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
@@ -89,6 +89,19 @@
                     <label class="form-check-label" for="accountActivation">I confirm my account deletion</label>
                 </div>
                 <button type="submit" class="btn btn-danger deactivate-account">Delete Account</button>
+            </form> --}}
+            <form id="formAccountSettings" method="POST" action="{{ route('user-query') }}">
+                @csrf
+              <div class="row">
+                <div class="mb-3 col-md-12">
+                    <label for="firstName" class="form-label">Enter your query</label>
+                    <textarea class="form-control" type="text" id="message" name="message" autofocus ></textarea>
+                </div>
+
+              </div>
+              <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+              </div>
             </form>
 
           </div>

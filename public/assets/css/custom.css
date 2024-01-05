@@ -31,13 +31,23 @@
 .genres-tooltip {
     display: none;
     position: absolute;
-    top: 20px;
-    left: 0;
-    background-color: #fff;
+    bottom: 25px;
+    left: 0px;
+    background-color: #4C1951;
     border: 1px solid #ddd;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    white-space: nowrap; /* Prevent line breaks */
+    border-radius: 5px;
+}
+
+.genres-tooltip div {
+    display: inline; /* Make genres appear inline */
+    margin-right: 10px; /* Adjust this value for the desired space between genres */
+    border: 1px solid #FF6802;
+    padding: 5px; /* Add padding for space between text and border */
+    border-radius: 5px; /* Adjust the border-radius as needed */
 }
 
 .hover-info:hover .genres-tooltip {

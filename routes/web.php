@@ -40,6 +40,7 @@ Route::prefix('customer')->middleware(['auth', 'customer'])->group(function () {
     Route::get('/home', [App\Http\Controllers\customer\HomeController::class, 'index'])->name('customer-home');
     Route::get('/profile', [App\Http\Controllers\customer\HomeController::class, 'profile'])->name('customer-profile');
     Route::post('/profile/update', [App\Http\Controllers\customer\HomeController::class, 'updateProfile'])->name('update-profile');
+    Route::post('/user-query', [App\Http\Controllers\customer\HomeController::class, 'userQuery'])->name('user-query');
     Route::post('/deactivate-account', [App\Http\Controllers\customer\HomeController::class, 'deactivateAccount'])->name('deactivate-account');
 
 
@@ -72,5 +73,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('popups', PopupController::class);
     Route::post('/toggle-popup/{id}', [App\Http\Controllers\PopupController::class, 'togglePopup'])->name('toggle.popup');
+
+    Route::get('/customers-queries', [App\Http\Controllers\UserController::class, 'query'])->name('customers-queries');
+    Route::delete('/query-delete/{id}', [App\Http\Controllers\UserController::class, 'deleteQuery'])->name('query-delete');
 
 });

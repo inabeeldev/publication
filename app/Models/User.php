@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Message;
 use App\Models\SubmitOrder;
 use App\Models\Recommendation;
 use Laravel\Sanctum\HasApiTokens;
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function recommendations()
     {
         return $this->hasMany(Recommendation::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

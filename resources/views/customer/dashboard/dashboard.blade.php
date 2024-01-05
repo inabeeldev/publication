@@ -59,7 +59,7 @@
             <span id="priceLabel2">0</span>
           </div>
           <button type="submit" class="btn btn-primary">Apply Filters</button>
-    </div>
+        </div>
     </form>
     <div id="loader" class="loader-container">
         <div class="loader"></div>
@@ -78,7 +78,7 @@
                         <th>Region</th>
                         <th>Sponsored</th>
                         <th>Indexed</th>
-                        <th>Image</th>
+                        <th>Has Image</th>
                         <th>Do Follow</th>
                         <th>Example</th>
                     </tr>
@@ -116,7 +116,7 @@
                             <td>{{ $publication->region }}</td>
                             <td>{{ $publication->sponsored }}</td>
                             <td>{{ $publication->indexed }}</td>
-                            <td>{{ $publication->image }}</td>
+                            <td>{{ $publication->has_image }}</td>
                             <td>{{ $publication->do_follow }}</td>
                             <td>{{ $publication->example }}</td>
                         </tr>

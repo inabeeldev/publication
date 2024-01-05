@@ -94,6 +94,7 @@
             <table class="table table-striped table-dark" id="dataTable">
                 <thead class="">
                     <tr>
+                        <th>Action</th>
                         <th>Publications</th>
                         <th>Genres</th>
                         <th>Price</th>
@@ -102,7 +103,7 @@
                         <th>Region</th>
                         <th>Sponsored</th>
                         <th>Indexed</th>
-                        <th>Image</th>
+                        <th>Has Image</th>
                         <th>Do Follow</th>
                         <th>Example</th>
                     </tr>
@@ -110,6 +111,17 @@
                 <tbody class="table-border-bottom-0">
                     @foreach($publications as $publication)
                         <tr class="publication-row">
+                            <td>
+                                <!-- Edit button with a link to the edit route or page -->
+                                <a href="{{ route('publications.edit', $publication->id) }}" class="btn btn-primary">Edit</a>
+
+                                <!-- Delete button with a form for CSRF protection -->
+                                <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                </form>
+                            </td>
                             <td>
                                 @if($publication->image)
                                     <img src="{{ asset('public/images/publications/' . $publication->image) }}" alt="{{ $publication->name }}" width="50" style="border-radius: 50%;">
@@ -140,7 +152,7 @@
                             <td>{{ $publication->region }}</td>
                             <td>{{ $publication->sponsored }}</td>
                             <td>{{ $publication->indexed }}</td>
-                            <td>{{ $publication->image }}</td>
+                            <td>{{ $publication->has_image }}</td>
                             <td>{{ $publication->do_follow }}</td>
                             <td>{{ $publication->example }}</td>
                         </tr>

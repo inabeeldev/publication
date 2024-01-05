@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\ApproveUser;
+use App\Models\Message;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -160,5 +161,23 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted successfully');
+    }
+
+
+    public function query()
+    {
+        $messages = Message::with('user')->get();
+        return view('admin.user.query', compact('messages'));
+
+    }
+
+    public function deleteQuery($id)
+    {
+        $message = Message::findOrFail($id);
+
+        // Delete the user
+        $message->delete();
+
+        return redirect()->back()->with('success', 'Query deleted successfully');
     }
 }

@@ -67,11 +67,9 @@
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-                <div class="app-brand justify-content-center">
+              <div class="app-brand justify-content-center d-flex">
                     <a href="index.html" class="app-brand-link gap-2">
-                        <span class="app-brand-logo demo">
-                            <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="GetClout" class="logo-image">
-                        </span>
+                        <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="" style="object-fit: cover; max-width: 200px; height: auto;">
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -94,7 +92,7 @@
                         </button>
                     </div>
                 @endif
-              <h4 class="mb-2">Adventure starts here 🚀</h4>
+                <h3 class="mb-5 text-center">Sign Up</h3>
 
             <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('customer-register') }}">
             @csrf
