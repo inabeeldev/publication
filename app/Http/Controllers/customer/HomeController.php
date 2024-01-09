@@ -132,8 +132,11 @@ class HomeController extends Controller
             });
         }
 
-        if ($request->filled('price_range') && $request->input('price_range') > 0) {
-            $publications->whereBetween('price', [0, $request->input('price_range')]);
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $minPrice = $request->input('min_price');
+            $maxPrice = $request->input('max_price');
+
+            $publications->whereBetween('price', [$minPrice, $maxPrice]);
         }
 
         // Add similar logic for other filters...

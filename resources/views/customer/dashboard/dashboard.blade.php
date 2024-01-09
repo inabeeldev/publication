@@ -53,11 +53,14 @@
             <option value="Project Management">Project Management</option>
         </select>
        </div>
-        <div class="mb-3 uyuy7">
-            <label for="formRange1" class="form-label">Price range</label>
-            <input type="range" name="price_range" class="form-range" id="formRange1" min="0" max="10000" step="100" value="0" />
-            <span id="priceLabel2">0</span>
-          </div>
+       <div class="mb-3 uyuy7">
+            <label for="formRange1" class="form-label">Min Price</label>
+            <input type="range" name="min_price" class="slider1" id="formRange1" min="0" max="10000" step="100" value="0" />
+            <span id="priceLabel1">0</span><br>
+            <label for="formRange1" class="form-label">Max Price</label>
+            <input type="range" name="max_price" class="slider2" id="formRange2" min="0" max="10000" step="100" value="10000" />
+            <span id="priceLabel2">10000</span>
+        </div>
           <button type="submit" class="btn btn-primary">Apply Filters</button>
         </div>
     </form>

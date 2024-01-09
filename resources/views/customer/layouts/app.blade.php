@@ -355,6 +355,18 @@
     <script defer>
         document.addEventListener('DOMContentLoaded', function () {
             var rangeSlider = document.getElementById('formRange1');
+            var priceLabel = document.getElementById('priceLabel1');
+
+            // Update the price label when the slider value changes
+            rangeSlider.addEventListener('input', function () {
+                priceLabel.innerText = rangeSlider.value;
+            });
+        });
+    </script>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function () {
+            var rangeSlider = document.getElementById('formRange2');
             var priceLabel = document.getElementById('priceLabel2');
 
             // Update the price label when the slider value changes

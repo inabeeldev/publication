@@ -11,25 +11,10 @@ class PublicationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $publications = Publication::orderBy('id', 'DESC')->get();
-        return view('admin.publication.index', compact('publications'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.publication.create');
-    }
-
-    public function filterPublications(Request $request)
-    {
-        // dd($request->all());
-        // Your filtering logic goes here
         $publications = Publication::query();
+        // dd($publications);
 
         if ($request->filled('publicationName')) {
             $publications->where('name', 'like', '%' . $request->input('publicationName') . '%');
@@ -53,9 +38,11 @@ class PublicationController extends Controller
             });
         }
 
-        if ($request->filled('price_range') && $request->input('price_range') > 0) {
-            $publications->whereBetween('price', [0, $request->input('price_range')]);
-            // dd($publications->get());
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $minPrice = $request->input('min_price');
+            $maxPrice = $request->input('max_price');
+
+            $publications->whereBetween('price', [$minPrice, $maxPrice]);
         }
 
 
@@ -65,6 +52,55 @@ class PublicationController extends Controller
 
 
         return view('admin.publication.index', ['publications' => $filteredPublications]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.publication.create');
+    }
+
+    public function filterPublications(Request $request)
+    {
+        // dd($request->all());
+        // Your filtering logic goes here
+        // $publications = Publication::query();
+
+        // if ($request->filled('publicationName')) {
+        //     $publications->where('name', 'like', '%' . $request->input('publicationName') . '%');
+        // }
+
+        // if ($request->filled('type')) {
+        //     $publications->where('type', $request->input('type'));
+        // }
+
+        // if ($request->filled('regions')) {
+        //     $publications->whereIn('region', $request->input('regions'));
+        // }
+
+        // if ($request->filled('genres')) {
+        //     $genres = $request->input('genres');
+
+        //     $publications->where(function ($query) use ($genres) {
+        //         foreach ($genres as $genre) {
+        //             $query->orWhere('genres', 'like', '%' . $genre . '%');
+        //         }
+        //     });
+        // }
+
+        // if ($request->filled('price_range') && $request->input('price_range') > 0) {
+        //     $publications->whereBetween('price', [$publications->price, $request->input('price_range')]);
+        // }
+
+
+        // // Add similar logic for other filters...
+
+        // $filteredPublications = $publications->get();
+
+
+        return view('admin.publication.index');
     }
 
     /**
