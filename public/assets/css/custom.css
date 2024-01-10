@@ -164,3 +164,24 @@
     background: #FF6802;
     cursor: pointer;
   }
+
+
+  .irs-handle {
+    background: #FF6802;
+    border-color: #FF6802;
+}
+
+/* Customize the shadow color (if needed) */
+.irs-handle-shadow {
+    background: #FF6802;
+    border-color: #FF6802;
+}
+
+
+.irs--flat .irs-bar {
+    background-color: #FF6802;
+}
+
+.irs--flat .irs-from, .irs--flat .irs-to, .irs--flat .irs-single {
+    background-color: #FF6802;
+}

@@ -22,6 +22,9 @@ use App\Http\Controllers\UserController;
 //     return view('welcome');
 // });
 
+Route::post('/forget-session', [App\Http\Controllers\customer\HomeController::class, 'forgetSession'])->name('forget-session');
+
+
 Route::get('/', [App\Http\Controllers\customer\AuthController::class, 'loginForm'])->name('login-form');
     Route::post('/logout', [App\Http\Controllers\customer\AuthController::class, 'logout'])->name('logout');
 

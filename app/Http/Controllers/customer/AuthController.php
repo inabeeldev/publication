@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\customer;
 
 use App\Models\User;
+use App\Models\Popup;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -102,6 +104,24 @@ class AuthController extends Controller
                 return redirect()->intended(route('admin-order'));
             }
 
+            if ($user->has_seen_welcome_popup == false) {
+                $welcomePopup = Popup::where('type', 'welcome')->where('status', 'enable')->first();
+                // dd($welcomePopup);
+                // Store the $welcomePopup data in the session
+                session(['popup' => $welcomePopup]);
+                $user->update(['has_seen_welcome_popup' => true]);
+
+                return redirect()->intended(route('customer-home'));
+            }
+
+            // Check if there is a daily popup for today
+            $dailyPopup = Popup::where('type', 'daily')
+            ->where('status', 'enable')->first();
+
+            if ($dailyPopup) {
+                session(['popup' => $dailyPopup]);
+            }
+
             // Redirect to customer home if user type is customer
             return redirect()->intended(route('customer-home'));
         }
@@ -110,6 +130,8 @@ class AuthController extends Controller
             ->withInput($request->only('email', 'remember'))
             ->withErrors(['email' => 'Invalid login credentials.']); // Customize the error message
     }
+
+
 
 
 

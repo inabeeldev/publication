@@ -50,9 +50,17 @@
                     <input class="form-control" type="number" id="mobile_number" name="mobile_number" value="{{ $customer->mobile_number }}" autofocus />
                 </div>
                 <div class="mb-3 col-md-6">
-                  <label for="address" class="form-label">country</label>
-                  <input type="text" class="form-control" id="country" name="country" value="{{ $customer->country }}" />
+                  <label for="address" class="form-label">Instagram Profile</label>
+                  <input type="text" class="form-control" id="instagram" name="instagram" value="{{ $customer->instagram }}" placeholder="Enter Instagram Profile URL" />
                 </div>
+                <div class="mb-3 col-md-6">
+                    <label for="address" class="form-label">Linkedin Profile</label>
+                    <input type="text" class="form-control" id="linkedin" name="linkedin" value="{{ $customer->linkedin }}" placeholder="Enter LinkedIn Profile URL" />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="address" class="form-label">YouTube Channel</label>
+                    <input type="text" class="form-control" id="youtube" name="youtube" value="{{ $customer->youtube }}" placeholder="Enter YouTube Channel URL" />
+                  </div>
                 <div class="mb-3 col-md-6">
                     <label for="password" class="form-label">New Password</label>
                     <input class="form-control" type="password" id="password" name="password" />

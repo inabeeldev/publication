@@ -137,6 +137,15 @@
                                 <div class="mb-3">
                                     <strong>Is Approved:</strong> {{ $user->is_approved ? 'Yes' : 'No' }}
                                 </div>
+                                <div class="mb-3">
+                                    <strong>Instagram Profile:</strong> {{ $user->instagram ? $user->instagram : 'Not provided by customer' }}
+                                </div>
+                                <div class="mb-3">
+                                    <strong>LinkedIn Profile:</strong> {{ $user->linkedin ? $user->linkedin : 'Not provided by customer' }}
+                                </div>
+                                <div class="mb-3">
+                                    <strong>YouTube Channel:</strong> {{ $user->youtube ? $user->youtube : 'Not provided by customer' }}
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

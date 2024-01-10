@@ -18,6 +18,18 @@ class HomeController extends Controller
 
     }
 
+    public function forgetSession(Request $request)
+    {
+        // Get the session key from the request
+        $sessionKey = $request->input('session_key');
+
+        // Forget the session based on the session key
+        $request->session()->forget($sessionKey);
+
+        // You can return a response if needed
+        return response()->json(['message' => 'Session forgotten successfully']);
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -37,6 +49,7 @@ class HomeController extends Controller
 
     public function updateProfile(Request $request)
     {
+        // dd($request->all());
         // Validate the form data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -50,6 +63,9 @@ class HomeController extends Controller
             'mobile_number' => 'nullable|numeric', // Adjust the validation rules as needed
             'country' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8', // Adjust the validation rules as needed
+            'instagram' => 'nullable|string',
+            'linkedin' => 'nullable|string',
+            'youtube' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -107,8 +123,11 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        // session()->forget(['popup']);
+        // dd($request->all());
         // Your filtering logic goes here
         $publications = Publication::query();
+
 
         if ($request->filled('publicationName')) {
             $publications->where('name', 'like', '%' . $request->input('publicationName') . '%');
@@ -116,6 +135,19 @@ class HomeController extends Controller
 
         if ($request->filled('type')) {
             $publications->where('type', $request->input('type'));
+        }
+
+        if ($request->filled('sponsored')) {
+            $publications->where('sponsored', $request->input('sponsored'));
+        }
+        if ($request->filled('do_follow')) {
+            $publications->where('do_follow', $request->input('do_follow'));
+        }
+        if ($request->filled('indexed')) {
+            $publications->where('indexed', $request->input('indexed'));
+        }
+        if ($request->filled('has_image')) {
+            $publications->where('has_image', $request->input('has_image'));
         }
 
         if ($request->filled('regions')) {
@@ -132,11 +164,18 @@ class HomeController extends Controller
             });
         }
 
-        if ($request->filled('min_price') && $request->filled('max_price')) {
-            $minPrice = $request->input('min_price');
-            $maxPrice = $request->input('max_price');
+        if ($request->filled('price_range')) {
+            // Split the price_range input using semicolon as a separator
+            $priceRange = explode(';', $request->input('price_range'));
 
-            $publications->whereBetween('price', [$minPrice, $maxPrice]);
+            // Ensure both min and max values are provided
+            if (count($priceRange) == 2) {
+                $minPrice = $priceRange[0];
+                $maxPrice = $priceRange[1];
+
+                // Set the min and max values in the whereBetween clause
+                $publications->whereBetween('price', [$minPrice, $maxPrice]);
+            }
         }
 
         // Add similar logic for other filters...

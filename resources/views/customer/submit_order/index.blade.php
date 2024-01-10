@@ -16,7 +16,7 @@
               <div class="d-flex align-items-end row">
                 <div class="col-sm-9">
                   <div class="card-body">
-                    <h5 class="card-title text-primary mb-3">Submitted Orders List</h5>
+                    <h5 class="card-title text-primary mb-3">Order Details</h5>
 
                     <p></p>
                     <a href="{{ route('create-submit-order') }}" class="btn btn-sm btn-outline-primary">Submit New Order</a>

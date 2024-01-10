@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'profile_url', 'mobile_number', 'country', 'contact_preference',
         'getclout_services', 'order_timing', 'order_quantity', 'how_did_you_hear', 'zoom_call',
-        'additional_notes', 'terms', 'user_type', 'is_approved', 'password',
+        'additional_notes', 'terms', 'user_type', 'instagram', 'linkedin', 'youtube','is_approved', 'password','has_seen_welcome_popup',
     ];
 
     /**

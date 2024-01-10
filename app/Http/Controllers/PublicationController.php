@@ -24,6 +24,19 @@ class PublicationController extends Controller
             $publications->where('type', $request->input('type'));
         }
 
+        if ($request->filled('sponsored')) {
+            $publications->where('sponsored', $request->input('sponsored'));
+        }
+        if ($request->filled('do_follow')) {
+            $publications->where('do_follow', $request->input('do_follow'));
+        }
+        if ($request->filled('indexed')) {
+            $publications->where('indexed', $request->input('indexed'));
+        }
+        if ($request->filled('has_image')) {
+            $publications->where('has_image', $request->input('has_image'));
+        }
+
         if ($request->filled('regions')) {
             $publications->whereIn('region', $request->input('regions'));
         }
@@ -38,11 +51,18 @@ class PublicationController extends Controller
             });
         }
 
-        if ($request->filled('min_price') && $request->filled('max_price')) {
-            $minPrice = $request->input('min_price');
-            $maxPrice = $request->input('max_price');
+        if ($request->filled('price_range')) {
+            // Split the price_range input using semicolon as a separator
+            $priceRange = explode(';', $request->input('price_range'));
 
-            $publications->whereBetween('price', [$minPrice, $maxPrice]);
+            // Ensure both min and max values are provided
+            if (count($priceRange) == 2) {
+                $minPrice = $priceRange[0];
+                $maxPrice = $priceRange[1];
+
+                // Set the min and max values in the whereBetween clause
+                $publications->whereBetween('price', [$minPrice, $maxPrice]);
+            }
         }
 
 

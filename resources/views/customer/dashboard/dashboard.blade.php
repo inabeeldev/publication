@@ -7,9 +7,15 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold pt-3 ">Pricing Sheet</h4>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold pt-2">Pricing Sheet</h4>
+
+        <div class="d-flex">
+            <button type="button" class="btn btn-primary me-2" onclick="window.location.href='{{ url('/customer/submit-order/create') }}'">Submit an Order</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url('/customer/request-recommendation/create') }}'">Request Recommendations</button>
+        </div>
     </div>
+
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{ session('success') }}</strong>
@@ -18,11 +24,11 @@
     @endif
     <!-- Striped Rows -->
     <form id="filterForm"  action="{{ route('customer-home') }}" method="GET">
-    <div class=" row mb-3">
-       <div class="col-md-6">
-        <input type="text" name="publicationName" class="form-control mb-3" id="publicationName" placeholder="Search by Publication Name">
+    <div class="row mb-2">
+       <div class="col-md-6 mb-2">
+        <input type="text" name="publicationName" class="form-control" id="publicationName" placeholder="Search by Publication Name">
        </div>
-       <div class="col-md-6">
+       <div class="col-md-6 mb-2">
         <select class="form-select " name="type">
             <option value="">Choose Publication type</option>
             <option value="">All Publications</option>
@@ -33,19 +39,19 @@
             <option value="print">Print</option>
         </select>
        </div>
-       <div class="col-md-6 mb-3">
+       <div class="col-md-6 mb-2">
         <label for="formRange1" class="form-label">Select Regions</label>
-        <select class="form-select select2" id="regions" name="regions[]" multiple>
+        <select class="form-select select2" id="regions" name="regions[]" multiple data-placeholder="Select regions">
             <option value="Pakistan">Pakistan</option>
             <option value="India">India</option>
             <option value="USA">USA</option>
             <option value="UK">UK</option>
             <option value="Australia">Australia</option>
         </select>
-       </div>
-       <div class="col-md-6 mb-3">
+    </div>
+       <div class="col-md-6 mb-2">
         <label for="formRange1" class="form-label">Select Genres</label>
-        <select class="form-select select2" id="genres" name="genres[]" multiple>
+        <select class="form-select select2" id="genres" name="genres[]" multiple data-placeholder="Select Genres">
             <option value="Magzines">Magzines</option>
             <option value="Music">Music</option>
             <option value="Drama">Drama</option>
@@ -53,23 +59,60 @@
             <option value="Project Management">Project Management</option>
         </select>
        </div>
-       <div class="mb-3 uyuy7">
+       <div class="col-md-4 mb-2 uyuy7">
+            <label for="priceRange" class="form-label mb-0">Price Range</label>
+            <input type="text" id="priceRange" name="price_range" />
+        </div>
+        <div class="col-md-2 mb-2">
+            <label for="formRange1" class="form-label">Sponsored</label>
+            <select class="form-select" name="sponsored">
+                <option value="">Choose One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-2">
+            <label for="formRange1" class="form-label">Do Follow</label>
+            <select class="form-select " name="do_follow">
+                <option value="">Choose One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-2">
+            <label for="formRange1" class="form-label">Indexed</label>
+            <select class="form-select " name="indexed">
+                <option value="">Choose One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div class="col-md-2 mb-2">
+            <label for="formRange1" class="form-label">Image</label>
+            <select class="form-select " name="has_image">
+                <option value="">Choose One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        {{-- <div class="col-md-12 mb-2 uyuy7">
             <label for="formRange1" class="form-label">Min Price</label>
             <input type="range" name="min_price" class="slider1" id="formRange1" min="0" max="10000" step="100" value="0" />
             <span id="priceLabel1">0</span><br>
             <label for="formRange1" class="form-label">Max Price</label>
             <input type="range" name="max_price" class="slider2" id="formRange2" min="0" max="10000" step="100" value="10000" />
             <span id="priceLabel2">10000</span>
-        </div>
-          <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div> --}}
+
+          <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
         </div>
     </form>
     <div id="loader" class="loader-container">
         <div class="loader"></div>
     </div>
-    <div class="card" style="background-color: #2A3A4C;">
+    <div class="card mt-3" style="background-color: #2A3A4C;">
         <h4 class="card-header text-light">All Publications</h4>
-        <div class="table-responsive text-nowrap">
+        <div class="text-nowrap">
             <table class="table table-striped table-dark" id="dataTable">
                 <thead>
                     <tr>
@@ -135,6 +178,40 @@
 <!-- / Content -->
 
 
+
+@if(session('popup'))
+        @php
+            $popup = session('popup');
+        @endphp
+
+        <div class="modal fade" id="popupModal30" tabindex="-1" aria-labelledby="popupModalLabel30" aria-hidden="true" data-session-key="popup">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="popupModalLabel30">{{ $popup->type == "welcome" ? "We Welcome You!" : "Daily News" }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- Image on the left side -->
+                                <img src="{{ asset('public/images/' . $popup->image) }}" alt="Popup Image" class="img-fluid">
+                            </div>
+                            <div class="col-md-8">
+                                <!-- Custom content -->
+                                {!! $popup->content !!}
+                                <!-- ... (other details) ... -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more content or customize as needed -->
+                </div>
+            </div>
+        </div>
+
+    @endif
+
+
 @endsection
 
 
@@ -159,6 +236,32 @@
         }
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('#popupModal30').on('hidden.bs.modal', function () {
+            // Get the session key from the modal's data attribute
+            var sessionKey = $(this).data('session-key');
+
+            // Trigger an AJAX request to forget the session
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("forget-session") }}',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'session_key': sessionKey
+                },
+                success: function (data) {
+                    // Handle success if needed
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if needed
+                }
+            });
+        });
+    });
+</script>
+
 @endsection
 
 

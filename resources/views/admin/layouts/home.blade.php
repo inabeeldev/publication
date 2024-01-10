@@ -38,6 +38,7 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('public/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}" />
 
@@ -131,7 +132,7 @@
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2">getclout</span> --}}
               <span class="app-brand-logo demo">
-                <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="Your Logo" class="logo-image1">
+                <img src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="Your Logo" class="logo-image1" style="width: 100%">
             </span>
             </a>
 
@@ -248,7 +249,7 @@
             @endcan
 
             @can('user-list')
-            <li class="menu-item {{ request()->is('customers-queries') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('admin/customers-queries') ? 'active' : '' }}">
                 <a href="{{ route('customers-queries') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-detail"></i>
                     <div data-i18n="popup">Customer Queries</div>
@@ -378,6 +379,8 @@
     <script src="{{ asset('public/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('public/assets/vendor/js/bootstrap.js') }}../"></script>
     <script src="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
 
     {{-- select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -429,6 +432,22 @@
         // Update the price label when the slider value changes
         rangeSlider.addEventListener('input', function () {
             priceLabel.innerText = rangeSlider.value;
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#priceRange").ionRangeSlider({
+            type: "double",
+            min: 0,
+            max: 10000,
+            from: 0,
+            to: 10000,
+            step: 100,
+            postfix: "",
+            prettify: false,
+            hasGrid: true
         });
     });
 </script>
