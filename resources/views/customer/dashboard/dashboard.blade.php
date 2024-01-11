@@ -113,7 +113,7 @@
     </div>
     <div class="card mt-3" style="background-color: #2A3A4C;">
         <h4 class="card-header text-light">All Publications</h4>
-        <div class="text-nowrap">
+        <div class="table-responsive text-nowrap">
             <table class="table table-striped table-dark" id="dataTable">
                 <thead>
                     <tr>
