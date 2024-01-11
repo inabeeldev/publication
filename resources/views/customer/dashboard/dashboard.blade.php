@@ -7,14 +7,15 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
         <h4 class="fw-bold pt-2">Pricing Sheet</h4>
 
         <div class="d-flex">
-            <button type="button" class="btn btn-primary me-2" onclick="window.location.href='{{ url('/customer/submit-order/create') }}'">Submit an Order</button>
-            <button type="button" class="btn btn-primary" onclick="window.location.href='{{ url('/customer/request-recommendation/create') }}'">Request Recommendations</button>
+            <button type="button" class="btn btn-primary me-2  mb-md-0" onclick="window.location.href='{{ url('/customer/submit-order/create') }}'">Submit an Order</button>
+            <button type="button" class="btn btn-outline-primary" onclick="window.location.href='{{ url('/customer/request-recommendation/create') }}'">Request Recommendations</button>
         </div>
     </div>
+
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
