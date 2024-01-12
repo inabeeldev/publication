@@ -8,7 +8,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold pt-3 ">Create Publication</h4>
+        <h4 class="fw-bold pt-3 ">Edit Publication</h4>
     </div>
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,7 +33,7 @@
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Create A publication</h5>
+                <h5 class="card-header">Edit publication</h5>
                 <div class="card-body">
                     <form method="POST" action="{{ route('publications.update', $publication->id) }}" enctype="multipart/form-data">
                         @csrf

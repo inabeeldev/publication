@@ -25,7 +25,7 @@
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Create a Role</h5>
+                <h5 class="card-header">Edit Role</h5>
                 <div class="card-body">
                     <form action="{{ route('roles.update', ['role' => $role->id]) }}" method="POST">
                         @csrf
