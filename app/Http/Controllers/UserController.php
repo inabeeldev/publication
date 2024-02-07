@@ -84,7 +84,8 @@ class UserController extends Controller
         if ($isApproved && is_null($user->password)) {
             $password = Str::random(8); // Generate an 8-character password
             $user->update(['password' => bcrypt($password)]);
-            Mail::to('apnadevstesting@gmail.com')->send(new ApproveUser($user, $password));
+            // Mail::to('apnadevstesting@gmail.com')->send(new ApproveUser($user, $password));
+            Mail::to($user->email)->send(new ApproveUser($user, $password));
         }
 
         return response()->json(['message' => 'Approval status and password updated successfully']);

@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | getclout</title>
+    <title>Login | Getclout</title>
 
     <meta name="description" content="" />
 
@@ -104,7 +104,7 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
-                    <a href="auth-forgot-password-basic.html">
+                    <a href="{{ route('password.request') }}">
                       <small>Forgot Password?</small>
                     </a>
                   </div>

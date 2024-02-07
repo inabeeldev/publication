@@ -69,9 +69,11 @@
 
 <body>
     <div class="container">
-        <img class="logo" src="{{ asset('public/assets/img/logo/logo.jpg') }}" alt="GetClout">
+        <div style="text-align: center;">
+            <img class="logo" src="https://pricing-getclout-agency.preview-domain.com/public/assets/img/logo/logo.jpg" alt="GetClout" style="width: 50%; margin-bottom: 10px;">
+        </div>
 
-        <h1>Congratulations! Your Account has been Approved</h1>
+        <h1 style="color:black">Congratulations! Your Account has been Approved</h1>
 
         <p>Dear {{ $user->name }},</p>
 

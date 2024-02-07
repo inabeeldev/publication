@@ -266,7 +266,7 @@
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('public/assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('public/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('public/assets/vendor/js/bootstrap.js') }}../"></script>
+    <script src="{{ asset('public/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('public/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
