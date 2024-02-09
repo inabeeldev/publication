@@ -65,7 +65,7 @@
                         <!-- Confirm Password -->
                         <div class="mb-3">
                             <label for="clientWebsite" class="form-label">Confirm Password</label>
-                            <input type="password" name="confirm_password" class="form-control" id="confirm_password"
+                            <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"
                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
                         </div>
 
